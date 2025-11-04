@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life Calendar Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Life Calendar Generator</h1>
+            <p class="subtitle">Visualize your life in weeks (0-90 years)</p>
+        </header>
+
+        <main>
+            <div class="info-box">
+                <p>Each square represents one week of your life. Past weeks are filled in black, future weeks remain empty.</p>
+                <p>Inspired by <a href="https://waitbutwhy.com/2014/05/life-weeks.html" target="_blank">Wait But Why Life Calendars</a></p>
+            </div>
+
+            <form id="calendar-form">
+                <div class="form-group">
+                    <label for="birthdate">Birthdate:</label>
+                    <input
+                        type="date"
+                        id="birthdate"
+                        name="birthdate"
+                        required
+                        max=""
+                    >
+                    <small>Enter your date of birth</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="title">Title (optional):</label>
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        placeholder="A 90-Year Human Life in Weeks"
+                        maxlength="100"
+                    >
+                    <small>Add a custom title to your calendar</small>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="generate-btn pdf-btn">
+                        <span class="btn-text">Download PDF</span>
+                        <span class="btn-loading" style="display: none;">Generating...</span>
+                    </button>
+                    <button type="button" class="generate-btn png-btn" id="png-btn">
+                        <span class="btn-text">Download PNG</span>
+                        <span class="btn-loading" style="display: none;">Generating...</span>
+                    </button>
+                </div>
+            </form>
+
+            <div id="error-message" class="error" style="display: none;"></div>
+            <div id="success-message" class="success" style="display: none;"></div>
+        </main>
+
+        <footer>
+            <p>All processing happens in your browser. No data is sent to any server.</p>
+        </footer>
+    </div>
+
+    <!-- jsPDF library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
