@@ -128,6 +128,8 @@ Each row represents one year of your life. Each column represents one week of th
 
 ## Example Output
 
+[View a sample calendar PDF](life_calendar_1990-05-15.pdf) (birthdate: 1990-05-15)
+
 The generated PDF includes:
 - Customizable title at the top (default: "A 90-Year Human Life in Weeks")
 - 52×90 grid of weeks (4,680 total squares) with spacing
@@ -163,7 +165,7 @@ As Tim Urban from Wait But Why wrote: "It turns out that when I visualize my yea
 
 ## License
 
-Free to use for personal purposes. Feel free to modify and share.
+This project is licensed under the BSD 2-Clause License - see the [LICENSE](LICENSE) file for details.
 
 ## Contributing
 

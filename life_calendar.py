@@ -98,7 +98,7 @@ def create_life_calendar_pdf(birthdate, weeks_lived, filename, title="A 90-Year 
 
     # Draw grid
     c.setLineWidth(0.5)
-    c.setStrokeColor(lightgrey)
+    c.setStrokeColor(black)
 
     for age in range(max_age):
         for week in range(weeks_per_year):
