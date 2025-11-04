@@ -1,5 +1,7 @@
 # Life Calendar Generator - Project Plan
 
+> **Note**: This project was written by [Claude Code](https://claude.com/claude-code), Anthropic's AI-powered coding assistant.
+
 ## Project Overview
 
 **Life Calendar Generator** - A CLI tool that creates a printable PDF showing a person's life in weeks (0-90 years old), with past weeks filled in black.
@@ -31,7 +33,8 @@ To help humans understand how precious time is by visualizing their entire life 
 ## Core Components
 
 ### 1. Input Handler
-- Prompt user for birthdate (format: YYYY-MM-DD)
+- Accept birthdate via command-line argument OR prompt user interactively
+- Format: YYYY-MM-DD
 - Validate the input (proper date format, not future date, reasonable year)
 - Calculate current age in weeks
 
@@ -42,12 +45,19 @@ To help humans understand how precious time is by visualizing their entire life 
 - Account for the starting week offset (birthday might not be week 1)
 
 ### 3. PDF Generator
-- Create A4 or Letter-sized page (landscape orientation)
-- Draw 52×90 grid of small squares
+- Create A4 page in **portrait orientation**
+- Draw 52×90 grid of small squares with **spacing between boxes (half-box gaps)**
 - Fill appropriate squares black (weeks lived)
 - Leave future weeks empty/white
-- Add minimal labels (week numbers on top, ages on left side)
-- Use thin transparent/gray borders for grid lines
+- Add labels:
+  - Week numbers on top (every 5 weeks)
+  - Age labels on left (0, 5, 10...85)
+  - Age 90 on right side (emphasizing endpoint)
+  - Vertical "Age" label with downward arrow
+  - Horizontal "Week of Year" label with rightward arrow
+- Use thin gray borders for grid lines (0.5pt)
+- Customizable title at the top
+- Footer with explanation
 
 ---
 
@@ -102,12 +112,23 @@ life-calendar/
 
 ## User Flow
 
+**Interactive Mode:**
 ```bash
 $ python life_calendar.py
 Enter your birthdate (YYYY-MM-DD): 1990-05-15
 Generating your life calendar...
-PDF saved as: life_calendar_1990-05-15.pdf
-You have lived 1,752 weeks out of 4,680 possible weeks.
+✓ PDF saved as: life_calendar_1990-05-15.pdf
+  You have lived 1,851 weeks out of 4,680 possible weeks.
+  That's 39.6% of a 90-year life.
+```
+
+**Command-line Mode:**
+```bash
+$ python life_calendar.py --birthdate 1990-05-15 --title "My Life Journey"
+Generating your life calendar...
+✓ PDF saved as: life_calendar_1990-05-15.pdf
+  You have lived 1,851 weeks out of 4,680 possible weeks.
+  That's 39.6% of a 90-year life.
 ```
 
 ---
@@ -117,19 +138,29 @@ You have lived 1,752 weeks out of 4,680 possible weeks.
 ### Grid Layout
 - **Dimensions**: 52 columns (weeks) × 90 rows (years)
 - **Orientation**: Week 1 at top-left, progressing left-to-right, then down by age
+- **Spacing**: Half-box gaps between each square (0.5x box size) for readability
 - **Total boxes**: 4,680 squares representing potential weeks of life
 
 ### Page Configuration
-- **Size**: A4 landscape (297mm × 210mm) - fits 52 columns nicely
-- **Alternative**: Letter landscape if A4 doesn't fit well
-- **Square size**: ~4-5mm per square (makes 52×90 fit on one page)
-- **Margins**: 10-15mm on all sides for printer safety
+- **Size**: A4 portrait (210mm × 297mm)
+- **Square size**: Automatically calculated with spacing to fit grid on one page
+- **Margins**: 15mm on all sides for printer safety
+- **Layout**: Spacious design emphasizing individual weeks
 
 ### Visual Style
 - **Border style**: Thin gray lines (0.5pt) - visible but not dominant
 - **Lived weeks**: Solid black fill
 - **Future weeks**: White/empty with gray border
-- **Labels**: Small, minimal font for week numbers and ages
+- **Labels**:
+  - Small font (7pt) for numeric labels
+  - Bold font (9pt) for axis labels
+  - Age labels on left (0-85) and right (90)
+  - Week labels on top (every 5 weeks)
+- **Directional arrows**:
+  - Vertical "Age" label with arrow pointing down (stops ~age 15)
+  - Horizontal "Week of Year" label with arrow pointing right (stops ~week 25)
+- **Title**: Customizable, bold 16pt at top (default: "A 90-Year Human Life in Weeks")
+- **Footer**: Explanatory text in 8pt
 
 ### Output
 - **Filename pattern**: `life_calendar_YYYY-MM-DD.pdf`
@@ -235,17 +266,34 @@ reportlab==4.0.7  # Or latest stable version
 
 ## Success Criteria
 
-- ✓ User can input birthdate easily
+- ✓ User can input birthdate easily (interactive or CLI argument)
 - ✓ PDF generates in under 5 seconds
 - ✓ Grid is accurately filled based on birthdate
-- ✓ PDF prints clearly on standard printer
-- ✓ Code is simple and maintainable (<200 lines)
+- ✓ Spacing makes individual weeks clearly visible
+- ✓ PDF prints clearly on standard printer (portrait A4)
+- ✓ Code is simple and maintainable (~210 lines)
 - ✓ Only one external dependency (ReportLab)
 - ✓ Works on Windows, Mac, Linux
+- ✓ Customizable title via command-line argument
+- ✓ Clear directional arrows showing time progression
 
 ---
 
-## Getting Started (Future Implementation)
+## Implementation Status
+
+**Project Status**: ✅ COMPLETED
+
+All planned features have been implemented:
+- ✅ Interactive and command-line input modes
+- ✅ Portrait A4 layout with spacing
+- ✅ Directional arrows (Age and Week of Year)
+- ✅ Custom title support
+- ✅ Age 90 on right side
+- ✅ Comprehensive documentation
+
+---
+
+## Getting Started
 
 ### Installation
 ```bash
@@ -253,17 +301,27 @@ pip install reportlab
 ```
 
 ### Usage
+
+**Interactive mode:**
 ```bash
 python life_calendar.py
 ```
 
+**With command-line arguments:**
+```bash
+python life_calendar.py --birthdate 1990-05-15 --title "My Life in Weeks"
+```
+
 ### Example Output
 ```
-Enter your birthdate (YYYY-MM-DD): 1985-03-15
+==================================================
+Life Calendar Generator
+==================================================
+
 Generating your life calendar...
-✓ PDF saved as: life_calendar_1985-03-15.pdf
-  You have lived 2,077 weeks out of 4,680 possible weeks.
-  That's 44.4% of a 90-year life.
+✓ PDF saved as: life_calendar_1990-05-15.pdf
+  You have lived 1,851 weeks out of 4,680 possible weeks.
+  That's 39.6% of a 90-year life.
 ```
 
 ---

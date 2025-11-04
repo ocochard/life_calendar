@@ -2,17 +2,23 @@
 
 A simple Python CLI tool that generates a printable PDF showing your life in weeks. Inspired by the [Wait But Why Life Calendars](https://store.waitbutwhy.com/collections/life-calendars).
 
+> **Note**: This project was written by [Claude Code](https://claude.com/claude-code), Anthropic's AI-powered coding assistant.
+
 ## What It Does
 
 Creates a visual representation of a 90-year life as a grid of 4,680 weeks (52 weeks × 90 years). Each week you've lived is filled in black, while future weeks remain empty. This powerful visualization helps you understand how precious time really is.
 
 ## Features
 
-- Simple CLI interface - just enter your birthdate
-- Generates a clean, printable PDF (A4 landscape)
+- Simple CLI interface - interactive or command-line arguments
+- Generates a clean, printable PDF (A4 portrait)
 - 52×90 grid showing every week from age 0 to 90
+- Spacious layout with gaps between boxes for better readability
 - Past weeks filled in black, future weeks empty
-- Labeled axes showing weeks of year and age
+- Clear directional arrows showing time progression
+- Age labels: 0-85 on left side, 90 on right side
+- Week labels on top axis
+- Customizable title
 - Minimal dependencies (just ReportLab)
 - KISS principle - simple, maintainable code
 
@@ -112,36 +118,40 @@ python life_calendar.py --birthdate 2000-01-01 --title "My Millennium Life"
 
 ## How to Read Your Calendar
 
-- **X-axis**: Week of the year (1-52)
-- **Y-axis**: Age (0-90 years)
+- **X-axis**: Week of the year (1-52) - labeled horizontally with arrow pointing right
+- **Y-axis**: Age (0-90 years) - labeled vertically with arrow pointing down
 - **Black squares**: Weeks you've already lived
 - **Empty squares**: Weeks yet to come (if you live to 90)
+- **Spacing**: Gaps between boxes (half the box size) for easier reading
 
 Each row represents one year of your life. Each column represents one week of the year.
 
 ## Example Output
 
 The generated PDF includes:
-- Title and subtitle with your birthdate
-- 52×90 grid of weeks (4,680 total squares)
-- Age labels on the left side (every 5 years)
-- Week labels on top (every 5 weeks)
-- Axis labels ("Age" and "Week of Year")
+- Customizable title at the top (default: "A 90-Year Human Life in Weeks")
+- 52×90 grid of weeks (4,680 total squares) with spacing
+- Age labels: 0, 5, 10, 15...85 on the left side
+- Age label: 90 on the right side (emphasizing the endpoint)
+- Week labels on top (every 5 weeks: 1, 5, 10, 15...50)
+- Vertical "Age" label with downward arrow (stops at age ~15)
+- Horizontal "Week of Year" label with rightward arrow (stops at week ~25)
 - Footer explaining the visualization
-- Statistics about weeks lived
+- Statistics displayed in terminal output (not in PDF)
 
 ## Printing
 
-The PDF is designed to print on standard A4 paper in landscape orientation. For best results:
+The PDF is designed to print on standard A4 paper in portrait orientation. For best results:
 - Print at 100% scale (no shrinking)
-- Use landscape orientation
+- Use portrait orientation
 - High-quality or best print settings recommended
 
 ## Technical Details
 
 - **Grid dimensions**: 52 columns × 90 rows = 4,680 squares
-- **Page size**: A4 landscape (297mm × 210mm)
-- **Square size**: Automatically calculated to fit the page
+- **Page size**: A4 portrait (210mm × 297mm)
+- **Spacing**: Half-box gaps between each square for clarity
+- **Square size**: Automatically calculated to fit the page with spacing
 - **Border style**: Thin gray lines (0.5pt)
 - **Calculation**: Days lived ÷ 7 = weeks lived
 
